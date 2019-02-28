@@ -15,34 +15,47 @@ pasar el catalogo al heredar de standar exception o runtime exception
 ![BOLT](./docs/media/i8n-logo.png)
 
 
-```java
 
-    public StandardRuntimeException(String code, String message, Throwable cause, MessageCatalog catalog) {
-        super(message, cause);
-        this.reasonCode = code;
-        this.catalog = catalog; // Catalogo
-        this.additionalInfo = new ArrayList<>();
+1 Paso uno, crea una extension del exception render
+
+```kotlin
+    object AwesomeCatalogo : ResourceMessageCatalog("") {
+        override val bundleName: String
+            get() = "scope_a.messages"
     }
 
 ```
-
-El catálogo no es mas que un intermediario para cargar los mensajes
-desde Bundle resouce, al disparar una exceptions estas se encargar
-de buscar segun la locale.
+2 Crea las exception root de tu app, en lugar de extender 
+de runtime exception, extiende de StandardRuntimeException || StandardException
 
 ```java
-[code]=CODIGO_ITEM_NOTFOUND
-[code]=CODIGO_ITEM_NOTFOUND
-[message]=ITEM NO ENCONTRADO[message]=ITEM NO ENCONTRADO
-[details]=[Product = null, database not ready]
-[details]=[Product = null, database not ready]
-[specific]=No se encontro
-Caused by: java.lang.UnknownError
-[specific]=No se encontro
-	at StandardRuntimeException.<init>(StandardRuntimeException.java:44)
-	at ExceptionCode.<init>(NotFoundException.java:26)
-	at ResourceMessageCatalogTest.testRuntimeException(ResourceMessageCatalogTest.java:38)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    class ExceptionCode : StandardRuntimeException {
+        construct(...)
+        
+        override fun getRender(): Render {
+            return ExceptionRender(TestCatalog)
+        }
+    
+    }
+
+```
+3 Usa
+
+```kotlin
+        
+  throw ExceptionCode("CODIGO_ITEM_NOTFOUND")
+            .appendErrorCode("CODIGO_ERROR_QUERY")
+            .appendMessage("Algo de context en tu idioma ...")
+            
+```
+
+4) Salida
+
+```bash
+    El item no fue enconrado en el sistema
+    No se pudieron recuperar los datos
+    Algo de context en tu idioma ...
+
 ```
 
 # i18N
