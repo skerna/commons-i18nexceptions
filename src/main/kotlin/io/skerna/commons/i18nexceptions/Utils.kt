@@ -20,29 +20,16 @@
  * SOFTWARE.
  */
 
-package io.skerna.i18nexceptions
+package io.skerna.commons.i18nexceptions
 
-import java.util.Objects
-
-@SuppressWarnings
-class RenderResult(val errorCode: ErrorCode, val mensaje: String, val additionalMessages:Map<ErrorCode,String>) {
-
-    override fun toString(): String {
-        return "RenderResult{" +
-                "codigo='" + errorCode + '\''.toString() +
-                ", mensaje='" + mensaje + '\''.toString() +
-                ", additionalMessages='"+(additionalMessages?:"") + '\''.toString()
-                '}'.toString()
+object Utils {
+    /**
+     * Determina si una cadena de caracteres es nula o vacia.
+     * @param text
+     * @return
+     */
+    fun isNullOrEmpty(text: String?): Boolean {
+        return text.isNullOrBlank()
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || javaClass != other.javaClass) return false
-        val that = other as RenderResult?
-        return errorCode == that!!.errorCode && mensaje == that.mensaje
-    }
-
-    override fun hashCode(): Int {
-        return Objects.hash(errorCode, mensaje)
-    }
 }

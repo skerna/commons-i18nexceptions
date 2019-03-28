@@ -20,19 +20,39 @@
  * SOFTWARE.
  */
 
-package io.skerna.i18nexceptions
-
-class ExceptionCode : StandardRuntimeException {
-    constructor(errorCode: String) : super(errorCode)
-    constructor(errorCode: ErrorCode) : super(errorCode)
-    constructor(errorCode: ErrorCode, message: String?) : super(errorCode, message)
-    constructor(errorCode: ErrorCode, message: String?, cause: Throwable?) : super(errorCode, message, cause)
-    constructor(errorCode: ErrorCode, cause: Throwable?) : super(errorCode, cause)
-    constructor(errorCode: ErrorCode, message: String?, cause: Throwable?, enableSuppression: Boolean, writableStackTrace: Boolean) : super(errorCode, message, cause, enableSuppression, writableStackTrace)
+package io.skerna.commons.i18nexceptions
 
 
-    override fun getRender(): Render {
-        return ExceptionRender(TestCatalog)
+import java.util.Locale
+import java.util.Optional
+
+interface Render {
+    /**
+     * Renderiza una expceion i18n
+     * @param i18NExceptionBase
+     * @param locale
+     * @return
+     */
+    fun render(i18NExceptionBase: I18NException, locale: Locale): Optional<RenderResult>
+
+    /**
+     * Renderiza una exception sin especificar el idioma
+     * @param i18NExceptionBase
+     * @return
+     */
+    fun render(i18NExceptionBase: I18NException): Optional<RenderResult>
+
+    companion object {
+
+
+        /**
+         * Crea un render
+         * @param catalog
+         * @return
+         */
+        fun create(catalog: MessageCatalog): Render {
+            return ExceptionRender(catalog)
+        }
     }
 
 }

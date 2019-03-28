@@ -20,26 +20,19 @@
  * SOFTWARE.
  */
 
-package io.skerna.i18nexceptions
+package io.skerna.commons.i18nexceptions
 
-import java.util.Locale
-import java.util.Optional
-
-class ExceptionRender(private val catalog: MessageCatalog) : Render {
-
-    override fun render(i18NExceptionBase: I18NException, locale: Locale): Optional<RenderResult> {
-        val code = i18NExceptionBase.getErrorCode()
-        val additionalCodes = i18NExceptionBase.getAdditionalErrorCodes()
-        val messageTranslated = catalog.getLocalizedMessage(code, locale)
+class ExceptionCode : StandardRuntimeException {
+    constructor(errorCode: String) : super(errorCode)
+    constructor(errorCode: ErrorCode) : super(errorCode)
+    constructor(errorCode: ErrorCode, message: String?) : super(errorCode, message)
+    constructor(errorCode: ErrorCode, message: String?, cause: Throwable?) : super(errorCode, message, cause)
+    constructor(errorCode: ErrorCode, cause: Throwable?) : super(errorCode, cause)
+    constructor(errorCode: ErrorCode, message: String?, cause: Throwable?, enableSuppression: Boolean, writableStackTrace: Boolean) : super(errorCode, message, cause, enableSuppression, writableStackTrace)
 
 
-        val messageTranslatedList = additionalCodes.associateWith(catalog::getLocalizedMessage)
-
-        var renderResult = RenderResult(code, messageTranslated,messageTranslatedList)
-        return Optional.ofNullable(renderResult)
+    override fun getRender(): Render {
+        return ExceptionRender(TestCatalog)
     }
 
-    override fun render(i18NExceptionBase: I18NException): Optional<RenderResult> {
-        return render(i18NExceptionBase, Locale.getDefault())
-    }
 }

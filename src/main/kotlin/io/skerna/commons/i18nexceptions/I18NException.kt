@@ -20,52 +20,35 @@
  * SOFTWARE.
  */
 
-package io.skerna.i18nexceptions
+package io.skerna.commons.i18nexceptions
 
-import java.util.Locale
-
-interface MessageCatalog {
-
+interface I18NException {
     /**
-     * El cliente debe retorna el
-     * path de ResourceBundle para el paquete
-     * en el que esta trabajando.
-     * Ejm io.r2b.pack.messages.namebundle
-     * en donde el directorio corresponde a resource files path, del proyecto
+     * Retorna el código a renderizar
      * @return
      */
-    val bundleName: String
+    fun getErrorCode(): String
 
     /**
-     * Obtiene un mesage i18n desde resources
-     * @param code
-     * @return
+     * Retorna una lista de codigos adicionales
+     * @return List<String>
      */
-    fun getLocalizedMessage(code: ErrorCode, locale: Locale): String
+    fun getAdditionalErrorCodes():List<String>
 
 
     /**
-     * Obtiene un mesage i18n desde resources
-     * @param code
-     * @return
+     * Check if current exception has addiotional Exceptions error
+     * codes
+     * @return Boolean
      */
-    fun getLocalizedMessage(code: ErrorCode): String
-
-
-    /**
-     * Verifica si el código esta disponible en la biblioteca de mensajes
-     * @param code
-     * @return
-     */
-    fun hasCode(code: ErrorCode): Boolean
+    fun hasAdditionalErrorCodes():Boolean
 
     /**
-     * Verifica si el catalogo tiene la clave
-     * @param code
-     * @param locale
+     * Retorna el render
+     * para la interfaz cliente
      * @return
      */
-    fun hasCode(code: ErrorCode, locale: Locale): Boolean
+    fun getRender(): Render
 
 
 }

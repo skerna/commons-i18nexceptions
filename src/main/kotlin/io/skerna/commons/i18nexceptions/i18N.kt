@@ -20,11 +20,11 @@
  * SOFTWARE.
  */
 
-package io.skerna.i18nexceptions
+package io.skerna.commons.i18nexceptions
 
 import java.util.ResourceBundle
 
-import io.skerna.i18nexceptions.Utils.isNullOrEmpty
+import io.skerna.commons.i18nexceptions.Utils.isNullOrEmpty
 
 @SuppressWarnings
 internal object i18N {

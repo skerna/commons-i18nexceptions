@@ -20,16 +20,26 @@
  * SOFTWARE.
  */
 
-package io.skerna.i18nexceptions
+package io.skerna.commons.i18nexceptions
 
-object Utils {
-    /**
-     * Determina si una cadena de caracteres es nula o vacia.
-     * @param text
-     * @return
-     */
-    fun isNullOrEmpty(text: String?): Boolean {
-        return text.isNullOrBlank()
+import java.util.Locale
+import java.util.Optional
+
+open class ExceptionRender(private val catalog: MessageCatalog) : Render {
+
+    override fun render(i18NExceptionBase: I18NException, locale: Locale): Optional<RenderResult> {
+        val code = i18NExceptionBase.getErrorCode()
+        val additionalCodes = i18NExceptionBase.getAdditionalErrorCodes()
+        val messageTranslated = catalog.getLocalizedMessage(code, locale)
+
+
+        val messageTranslatedList = additionalCodes.associateWith(catalog::getLocalizedMessage)
+
+        var renderResult = RenderResult(code, messageTranslated,messageTranslatedList)
+        return Optional.ofNullable(renderResult)
     }
 
+    override fun render(i18NExceptionBase: I18NException): Optional<RenderResult> {
+        return render(i18NExceptionBase, Locale.getDefault())
+    }
 }

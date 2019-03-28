@@ -20,12 +20,16 @@
  * SOFTWARE.
  */
 
-package io.skerna.i18nexceptions
+package io.skerna.commons.i18nexceptions
 
-class ExceptionUnknowCode internal constructor()// RESOURCE KEY ITEM
-    : StandardException("NO_REGISTRADO_BUNDLE") {
+open class I18NInternalException : RuntimeException {
+    constructor() : super() {}
 
-    override fun getRender(): Render {
-        return ExceptionRender(TestCatalog())
-    }
+    constructor(s: String) : super(s) {}
+
+    constructor(s: String, throwable: Throwable) : super(s, throwable) {}
+
+    constructor(throwable: Throwable) : super(throwable) {}
+
+    protected constructor(s: String, throwable: Throwable, b: Boolean, b1: Boolean) : super(s, throwable, b, b1) {}
 }

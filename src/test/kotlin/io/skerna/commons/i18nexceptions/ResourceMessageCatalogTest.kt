@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package io.skerna.i18nexceptions
+package io.skerna.commons.i18nexceptions
 
 import org.junit.Before
 import org.junit.Test

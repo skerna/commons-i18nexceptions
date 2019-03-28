@@ -20,9 +20,52 @@
  * SOFTWARE.
  */
 
-package io.skerna.i18nexceptions
+package io.skerna.commons.i18nexceptions
 
-object TestCatalog : ResourceMessageCatalog("") {
-    override val bundleName: String
-        get() = "scope_a.messages"
+import java.util.Locale
+
+interface MessageCatalog {
+
+    /**
+     * El cliente debe retorna el
+     * path de ResourceBundle para el paquete
+     * en el que esta trabajando.
+     * Ejm io.r2b.pack.messages.namebundle
+     * en donde el directorio corresponde a resource files path, del proyecto
+     * @return
+     */
+    val bundleName: String
+
+    /**
+     * Obtiene un mesage i18n desde resources
+     * @param code
+     * @return
+     */
+    fun getLocalizedMessage(code: String, locale: Locale): String
+
+
+    /**
+     * Obtiene un mesage i18n desde resources
+     * @param code
+     * @return
+     */
+    fun getLocalizedMessage(code: String): String
+
+
+    /**
+     * Verifica si el código esta disponible en la biblioteca de mensajes
+     * @param code
+     * @return
+     */
+    fun hasCode(code: String): Boolean
+
+    /**
+     * Verifica si el catalogo tiene la clave
+     * @param code
+     * @param locale
+     * @return
+     */
+    fun hasCode(code: String, locale: Locale): Boolean
+
+
 }

@@ -20,16 +20,29 @@
  * SOFTWARE.
  */
 
-package io.skerna.i18nexceptions
+package io.skerna.commons.i18nexceptions
 
-class I18NInternalException : RuntimeException {
-    constructor() : super() {}
+import java.util.Objects
 
-    constructor(s: String) : super(s) {}
+@SuppressWarnings
+open class RenderResult(val errorCode: String, val mensaje: String, val additionalMessages:Map<String,String>) {
 
-    constructor(s: String, throwable: Throwable) : super(s, throwable) {}
+    override fun toString(): String {
+        return "RenderResult{" +
+                "codigo='" + errorCode + '\''.toString() +
+                ", mensaje='" + mensaje + '\''.toString() +
+                ", additionalMessages='"+(additionalMessages?:"") + '\''.toString()
+                '}'.toString()
+    }
 
-    constructor(throwable: Throwable) : super(throwable) {}
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
+        val that = other as RenderResult?
+        return errorCode == that!!.errorCode && mensaje == that.mensaje
+    }
 
-    protected constructor(s: String, throwable: Throwable, b: Boolean, b1: Boolean) : super(s, throwable, b, b1) {}
+    override fun hashCode(): Int {
+        return Objects.hash(errorCode, mensaje)
+    }
 }

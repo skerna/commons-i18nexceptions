@@ -20,39 +20,37 @@
  * SOFTWARE.
  */
 
-package io.skerna.i18nexceptions
+package io.skerna.commons.i18nexceptions
 
-
-import java.util.ArrayList
 
 /**
  * Created by ronald on 02/02/18.
  */
 
 abstract class StandardException  : RuntimeException, I18NException {
-    private val errorCode:ErrorCode;
-    private val additionalCodes: MutableList<ErrorCode> by lazy { mutableListOf<ErrorCode>() }
+    private val String:String;
+    private val additionalCodes: MutableList<String> by lazy { mutableListOf<String>() }
     private val additionalMessages: MutableList<String> by lazy { mutableListOf<String>() }
     private val _render: Render by lazy { initialize_render() }
 
-    constructor( errorCode: ErrorCode) : super() {
-        this.errorCode = errorCode
+    constructor( String: String) : super() {
+        this.String = String
     }
 
-    constructor( errorCode: ErrorCode,message: String?) : super(message) {
-        this.errorCode = errorCode
+    constructor( String: String,message: String?) : super(message) {
+        this.String = String
     }
 
-    constructor( errorCode: ErrorCode,message: String?, cause: Throwable?) : super(message, cause) {
-        this.errorCode = errorCode
+    constructor( String: String,message: String?, cause: Throwable?) : super(message, cause) {
+        this.String = String
     }
 
-    constructor( errorCode: ErrorCode,cause: Throwable?) : super(cause) {
-        this.errorCode = errorCode
+    constructor( String: String,cause: Throwable?) : super(cause) {
+        this.String = String
     }
 
-    constructor( errorCode: ErrorCode,message: String?, cause: Throwable?, enableSuppression: Boolean, writableStackTrace: Boolean) : super(message, cause, enableSuppression, writableStackTrace) {
-        this.errorCode = errorCode
+    constructor( String: String,message: String?, cause: Throwable?, enableSuppression: Boolean, writableStackTrace: Boolean) : super(message, cause, enableSuppression, writableStackTrace) {
+        this.String = String
     }
 
 
@@ -60,9 +58,9 @@ abstract class StandardException  : RuntimeException, I18NException {
         additionalMessages.add(message)
     }
 
-    override fun getErrorCode(): ErrorCode  = errorCode
+    override fun getErrorCode(): String  = String
 
-    override fun getAdditionalErrorCodes(): List<ErrorCode>  = getAdditionalErrorCodes()
+    override fun getAdditionalErrorCodes(): List<String>  = getAdditionalErrorCodes()
 
     override fun hasAdditionalErrorCodes(): Boolean = this::additionalCodes.isLazyInitialized
 
@@ -73,7 +71,7 @@ abstract class StandardException  : RuntimeException, I18NException {
 
     override fun toString(): String {
 
-        return "\n[" + i18N.CODE + "]=" + errorCode +
+        return "\n[" + i18N.CODE + "]=" + String +
                 "\n[" + i18N.MESSAGE + "]=" + message +
                 "\n[" + i18N.DETAILS + "]=" + additionalMessages.toString()
     }

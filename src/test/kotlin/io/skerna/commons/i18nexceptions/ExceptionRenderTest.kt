@@ -20,35 +20,22 @@
  * SOFTWARE.
  */
 
-package io.skerna.i18nexceptions
+package io.skerna.commons.i18nexceptions
 
-interface I18NException {
-    /**
-     * Retorna el código a renderizar
-     * @return
-     */
-    fun getErrorCode(): ErrorCode
+import org.junit.Test
 
-    /**
-     * Retorna una lista de codigos adicionales
-     * @return List<String>
-     */
-    fun getAdditionalErrorCodes():List<ErrorCode>
+class ExceptionRenderTest {
 
+    @Test
+    fun render() {
+        val catlog = TestCatalog
 
-    /**
-     * Check if current exception has addiotional Exceptions error
-     * codes
-     * @return Boolean
-     */
-    fun hasAdditionalErrorCodes():Boolean
+        val render = Render.create(catlog)
 
-    /**
-     * Retorna el render
-     * para la interfaz cliente
-     * @return
-     */
-    fun getRender(): Render
+        val renderResult = render.render(ExceptionCode("CODIGO_ITEM_NOTFOUND"))
+        println(renderResult)
 
 
+        println(ExceptionCode("CODIGO_ITEM_NOTFOUND"))
+    }
 }

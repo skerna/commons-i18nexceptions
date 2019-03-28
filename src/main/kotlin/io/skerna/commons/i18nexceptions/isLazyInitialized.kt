@@ -20,24 +20,23 @@
  * SOFTWARE.
  */
 
-package io.skerna.i18nexceptions
+package io.skerna.commons.i18nexceptions
 
-import org.junit.Test
+import kotlin.reflect.KProperty0
+import kotlin.reflect.jvm.isAccessible
 
-import java.util.Optional
+/**
+ * Returns true if a lazy property reference has been initialized, or if the property is not lazy.
+ */
+val KProperty0<*>.isLazyInitialized: Boolean
+    get() {
+        if (this !is Lazy<*>) return true
 
-class ExceptionRenderTest {
-
-    @Test
-    fun render() {
-        val catlog = TestCatalog
-
-        val render = Render.create(catlog)
-
-        val renderResult = render.render(ExceptionCode("CODIGO_ITEM_NOTFOUND"))
-        println(renderResult)
-
-
-        println(ExceptionCode("CODIGO_ITEM_NOTFOUND"))
+        // Prevent IllegalAccessException from JVM access check on private properties.
+        val originalAccessLevel = isAccessible
+        isAccessible = true
+        val isLazyInitialized = (getDelegate() as Lazy<*>).isInitialized()
+        // Reset access level.
+        isAccessible = originalAccessLevel
+        return isLazyInitialized
     }
-}

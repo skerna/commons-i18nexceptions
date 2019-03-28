@@ -20,13 +20,13 @@
  * SOFTWARE.
  */
 
-package io.skerna.i18nexceptions
+package io.skerna.commons.i18nexceptions
 
 import java.util.*
 
-import io.skerna.i18nexceptions.Utils.isNullOrEmpty
+import io.skerna.commons.i18nexceptions.Utils.isNullOrEmpty
 
-abstract class ResourceMessageCatalog : MessageCatalog {
+open class ResourceMessageCatalog : MessageCatalog {
     override val bundleName: String
 
     /**
@@ -39,7 +39,7 @@ abstract class ResourceMessageCatalog : MessageCatalog {
     }
 
 
-    override fun getLocalizedMessage(code: ErrorCode, locale: Locale): String {
+    override fun getLocalizedMessage(code: String, locale: Locale): String {
         val bundle = loadBundle(locale)
         var message: String = ""
         if (bundle.isPresent) {
@@ -58,7 +58,7 @@ abstract class ResourceMessageCatalog : MessageCatalog {
     }
 
 
-    override fun getLocalizedMessage(code: ErrorCode): String {
+    override fun getLocalizedMessage(code: String): String {
         return getLocalizedMessage(code, Locale.getDefault())
     }
 
@@ -82,11 +82,11 @@ abstract class ResourceMessageCatalog : MessageCatalog {
         return Optional.ofNullable(references[keyBundle])
     }
 
-    override fun hasCode(code: ErrorCode): Boolean {
+    override fun hasCode(code: String): Boolean {
         return hasCode(code, Locale.getDefault())
     }
 
-    override fun hasCode(code: ErrorCode, locale: Locale): Boolean {
+    override fun hasCode(code: String, locale: Locale): Boolean {
         val bundle = loadBundle(locale)
         return bundle.map { resourceBundle -> resourceBundle.containsKey(code.toString()) }.orElse(false)
     }
