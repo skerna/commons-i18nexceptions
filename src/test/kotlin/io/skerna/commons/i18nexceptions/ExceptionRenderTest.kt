@@ -22,7 +22,8 @@
 
 package io.skerna.commons.i18nexceptions
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
+
 
 class ExceptionRenderTest {
 

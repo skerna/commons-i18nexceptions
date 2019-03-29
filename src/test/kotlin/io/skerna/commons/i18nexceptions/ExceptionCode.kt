@@ -24,11 +24,6 @@ package io.skerna.commons.i18nexceptions
 
 class ExceptionCode : StandardRuntimeException {
     constructor(errorCode: String) : super(errorCode)
-    constructor(errorCode: ErrorCode) : super(errorCode)
-    constructor(errorCode: ErrorCode, message: String?) : super(errorCode, message)
-    constructor(errorCode: ErrorCode, message: String?, cause: Throwable?) : super(errorCode, message, cause)
-    constructor(errorCode: ErrorCode, cause: Throwable?) : super(errorCode, cause)
-    constructor(errorCode: ErrorCode, message: String?, cause: Throwable?, enableSuppression: Boolean, writableStackTrace: Boolean) : super(errorCode, message, cause, enableSuppression, writableStackTrace)
 
 
     override fun getRender(): Render {

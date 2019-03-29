@@ -26,6 +26,6 @@ class ExceptionUnknowCode internal constructor()// RESOURCE KEY ITEM
     : StandardException("NO_REGISTRADO_BUNDLE") {
 
     override fun getRender(): Render {
-        return ExceptionRender(TestCatalog())
+        return ExceptionRender(ResourceMessageCatalog("scope_a.messages"))
     }
 }

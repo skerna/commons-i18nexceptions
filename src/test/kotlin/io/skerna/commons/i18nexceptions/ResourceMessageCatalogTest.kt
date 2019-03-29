@@ -22,29 +22,21 @@
 
 package io.skerna.commons.i18nexceptions
 
-import org.junit.Before
-import org.junit.Test
 
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 import java.util.Locale
-
-import org.junit.Assert.*
 
 class ResourceMessageCatalogTest {
 
-    private var message: MessageCatalog? = null
-
-    @Before
-    @Throws(Exception::class)
-    fun setUp() {
-        message = TestCatalog
-    }
+    private var message: MessageCatalog = TestCatalog
 
     @Test
     @Throws(ExceptionCode::class)
     fun testRuntimeException() {
         try {
             throw ExceptionCode("CODIGO_ITEM_NOTFOUND")
-                    .appendErrorCode("CODIGO_ITEM_X")
                     .appendMessage("Algo de context en tu idioma ...")
 
 

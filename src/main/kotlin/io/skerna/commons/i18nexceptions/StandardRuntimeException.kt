@@ -65,7 +65,7 @@ abstract class StandardRuntimeException  : RuntimeException, I18NException {
 
     override fun getErrorCode(): String  = errorCode
 
-    override fun getAdditionalErrorCodes(): List<String>  = getAdditionalErrorCodes()
+    override fun getAdditionalErrorCodes(): List<String>  = additionalCodes
 
     override fun hasAdditionalErrorCodes(): Boolean = this::additionalCodes.isLazyInitialized
 
