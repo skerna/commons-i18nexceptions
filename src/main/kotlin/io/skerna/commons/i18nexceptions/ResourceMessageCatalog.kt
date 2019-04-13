@@ -50,6 +50,9 @@ open class ResourceMessageCatalog : MessageCatalog {
 
         }
         if (isNullOrEmpty(message)) {
+            for (key in bundle.get().keys) {
+                println(key)
+            }
             throw I18NInternalException(String.format("Code [%s] is not part of catalog $bundleName in Catalog ", code))
         }
 
