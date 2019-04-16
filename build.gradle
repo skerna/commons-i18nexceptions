@@ -1,11 +1,13 @@
 plugins {
     id "org.jetbrains.kotlin.jvm"
+    id "com.jfrog.bintray" version "1.8.4"
+
 }
 apply plugin: "maven-publish"
 
 repositories {
     mavenCentral()
-    maven { url "https://jitpack.io" }
+    maven { url  "https://dl.bintray.com/skerna/maven" }
 }
 
 dependencies {
@@ -33,15 +35,5 @@ compileTestKotlin {
 }
 
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId project.group
-            artifactId project.name
-            version project.version
-
-            from components.java
-        }
-    }
-}
+apply from: "./gradle/publish.gradle"
 
