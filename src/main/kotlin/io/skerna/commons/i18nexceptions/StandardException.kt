@@ -64,11 +64,12 @@ abstract class StandardException  : RuntimeException, I18NException {
 
     override fun hasAdditionalErrorCodes(): Boolean = this::additionalCodes.isLazyInitialized
 
+    /***
     @Synchronized
     override fun fillInStackTrace(): Throwable {
         return this
     }
-
+    */
     override fun toString(): String {
 
         return "\n[" + i18N.CODE + "]=" + String +
