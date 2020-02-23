@@ -1,9 +1,10 @@
 plugins {
     id "org.jetbrains.kotlin.jvm"
-    id "com.jfrog.bintray" version "1.8.4"
+    id "com.jfrog.bintray"
 
 }
 apply plugin: "maven-publish"
+apply from: project.file("gradle/wrapper.gradle")
 
 repositories {
     mavenCentral()

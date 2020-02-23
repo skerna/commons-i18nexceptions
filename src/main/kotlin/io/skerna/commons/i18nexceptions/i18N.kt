@@ -68,7 +68,7 @@ internal object i18N {
                 val _spec = if (bunlde != null) bunlde.getString(i18N.I18nKeys.SPECIFIC_KEY.key) else i18N.I18nKeys.SPECIFIC_KEY.defaultValue
                 return if (isNullOrEmpty(_spec)) "Spec" else _spec
             }
-            else ->  "Unknow"
+            else ->  "Unknown"
         }
         return name
     }

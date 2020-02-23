@@ -31,7 +31,7 @@ open class RenderResult(val errorCode: String, val mensaje: String, val addition
         return "RenderResult{" +
                 "codigo='" + errorCode + '\''.toString() +
                 ", mensaje='" + mensaje + '\''.toString() +
-                ", additionalMessages='"+(additionalMessages?:"") + '\''.toString()
+                ", additionalMessages='"+(additionalMessages?:"") + '\''.toString() +
                 '}'.toString()
     }
 
