@@ -4,7 +4,6 @@ plugins {
 
 }
 apply plugin: "maven-publish"
-apply from: project.file("gradle/wrapper.gradle")
 
 repositories {
     mavenCentral()
@@ -15,8 +14,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation "org.jetbrains.kotlin:kotlin-reflect"
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
 }
 
 
@@ -35,6 +34,6 @@ compileTestKotlin {
     }
 }
 
-
-apply from: "./gradle/publish.gradle"
+apply from: project.file("gradle/configuration.gradle")
+apply from: project.file("gradle/publish.gradle")
 

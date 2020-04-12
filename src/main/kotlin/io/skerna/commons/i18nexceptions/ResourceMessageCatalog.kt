@@ -28,7 +28,7 @@ import io.skerna.commons.i18nexceptions.Utils.isNullOrEmpty
 
 open class ResourceMessageCatalog : MessageCatalog {
     override val bundleName: String
-
+    private var classLoader:ClassLoader?=null
     /**
      * Defult contructor, espera encontrar en el path un resource bundle con el nombre
      * messsages
@@ -38,14 +38,23 @@ open class ResourceMessageCatalog : MessageCatalog {
         this.bundleName = _nameBundle
     }
 
+    /**
+     * Defult contructor, espera encontrar en el path un resource bundle con el nombre
+     * messsages
+     */
+    constructor(bundleName: String, classLoader: ClassLoader):this(bundleName) {
+        this.classLoader = classLoader
+    }
+
 
     override fun getLocalizedMessage(code: String, locale: Locale): String {
-        val bundle = loadBundle(locale)
+        val bundle = loadBundle(locale,classLoader)
         var message: String = ""
         if (bundle.isPresent) {
             try {
                 message = bundle.get().getString(code.toString())
             } catch (e: Exception) {
+
             }
 
         }
@@ -67,15 +76,19 @@ open class ResourceMessageCatalog : MessageCatalog {
 
     /**
      * @param locale NULLEABLE
+     * @param classLoader
      * @return
      */
-    private fun loadBundle(locale: Locale): Optional<ResourceBundle> {
-
+    private fun loadBundle(locale: Locale,loader:ClassLoader?=null): Optional<ResourceBundle> {
         val keyBundle = bundleName + "_" + locale.country
         if (!references.containsKey(keyBundle)) {
             var bundle: ResourceBundle?
             try {
-                bundle = ResourceBundle.getBundle(bundleName, locale)
+                if(loader == null){
+                    bundle = ResourceBundle.getBundle(bundleName, locale)
+                }else{
+                    bundle = ResourceBundle.getBundle(bundleName, locale,loader)
+                }
                 references[keyBundle] = bundle
             } catch (ex: Exception) {
                 throw I18NInternalException(String.format("bundle %s not found", bundleName))
@@ -90,7 +103,7 @@ open class ResourceMessageCatalog : MessageCatalog {
     }
 
     override fun hasCode(code: String, locale: Locale): Boolean {
-        val bundle = loadBundle(locale)
+        val bundle = loadBundle(locale,classLoader)
         return bundle.map { resourceBundle -> resourceBundle.containsKey(code.toString()) }.orElse(false)
     }
 

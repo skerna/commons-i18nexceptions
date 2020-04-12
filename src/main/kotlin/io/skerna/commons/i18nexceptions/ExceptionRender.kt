@@ -25,7 +25,7 @@ package io.skerna.commons.i18nexceptions
 import java.util.Locale
 import java.util.Optional
 
-open class ExceptionRender(private val catalog: MessageCatalog) : Render {
+open class ExceptionRenders(private val catalog: MessageCatalog) : Render {
 
     override fun render(i18NExceptionBase: I18NException, locale: Locale): Optional<RenderResult> {
         val code = i18NExceptionBase.getErrorCode()

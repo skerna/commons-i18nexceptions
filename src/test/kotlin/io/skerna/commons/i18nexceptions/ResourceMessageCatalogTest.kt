@@ -41,8 +41,8 @@ class ResourceMessageCatalogTest {
 
 
         } catch (ex: Exception) {
-            ExceptionRender(message!!).render(ex as I18NException)
-            assertEquals(ex.javaClass, ExceptionCode::class.java)
+            ExceptionRender(message).render(ex as I18NException)
+            assertEquals(ex.getErrorCode(),"CODIGO_ITEM_NOTFOUND" )
         }
 
     }
@@ -71,5 +71,6 @@ class ResourceMessageCatalogTest {
         val result = message!!.hasCode("CODIGO_ITEM_NOTFOUND")
         assertEquals(result, true)
     }
+
 
 }
