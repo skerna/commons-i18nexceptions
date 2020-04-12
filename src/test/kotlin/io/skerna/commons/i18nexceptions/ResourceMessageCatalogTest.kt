@@ -72,5 +72,4 @@ class ResourceMessageCatalogTest {
         assertEquals(result, true)
     }
 
-
 }
